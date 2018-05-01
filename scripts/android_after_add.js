@@ -8,14 +8,14 @@ module.exports = function (context) {
         fs.renameSync("platforms/android/app/src/main/assets/www/cordova_plugins.js", "platforms/android/app/src/main/assets/www/sunbird/cordova_plugins.js");
         fs.renameSync("platforms/android/app/src/main/assets/www/plugins/", "platforms/android/app/src/main/assets/www/sunbird/plugins/"); 
     } catch (error) {
-        
+        console.log(error);
     }
 
     try {
         //rename config.xml for the app
         fs.renameSync("platforms/android/app/src/main/res/xml/config.xml", "platforms/android/app/src/main/res/xml/sunbird_config.xml");
     } catch (error) {
-        
+        console.log(error);
     }
 
     try {
@@ -49,7 +49,7 @@ module.exports = function (context) {
             console.log("Deleted => platforms/android/app/src/main/java/org/apache/cordova/whitelist");
         });
     } catch (error) {
-        
+        console.log(error);
     }
     
 }
