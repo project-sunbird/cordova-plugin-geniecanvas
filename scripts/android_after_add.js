@@ -21,16 +21,38 @@ module.exports = function (context) {
     try {
         //deleting duplicate cordova files
         fs.unlinkSync("platforms/android/CordovaLib/src/org/apache/cordova/BuildHelper.java");
+    } catch (error) {
+        console.log(error);
+    }
+    try {
         fs.unlinkSync("platforms/android/CordovaLib/src/org/apache/cordova/PermissionHelper.java");
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
         //deleting duplicate keyboard plugin files
         fs.unlinkSync("platforms/android/app/src/main/java/io/ionic/keyboard/IonicKeyboard.java");
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
         //deleting duplicate device plugin files
         fs.unlinkSync("platforms/android/app/src/main/java/org/apache/cordova/device/Device.java");
+    } catch (error) {
+        console.log(error);
+    }
 
+    try {
         //update main activity
         fs.unlinkSync("platforms/android/app/src/main/java/org/sunbird/app/MainActivity.java");
         fs.createReadStream("plugins/cordova-plugin-geniecanvas/scripts/MainActivity.java").pipe(fs.createWriteStream("platforms/android/app/src/main/java/org/sunbird/app/MainActivity.java"));
+    } catch (error) {
+        console.log(error);
+    }
 
+    try {
         var rimraf = require('rimraf');
         //deleting file plugin duplicate dir
         rimraf("platforms/android/app/src/main/java/org/apache/cordova/file", function () {
