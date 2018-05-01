@@ -10,7 +10,7 @@
 
     <hook src="scripts/android_after_add.js" type="after_prepare" />
 
-    
+    <hook src="scripts/android_after_add.js" type="after_plugin_install" />
 
     <framework src="build-extras.gradle" custom="true" type="gradleReference"/>
 
