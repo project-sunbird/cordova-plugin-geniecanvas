@@ -24,9 +24,7 @@ allprojects {
 }
 
 android {
-  productFlavors {
-        qa {
-            buildConfigField 'String', 'PLAYER_CONFIG', '"org.sunbird.PlayerConfig"'
-          }
+    defaultConfig {
+        buildConfigField 'String', 'PLAYER_CONFIG', '"org.sunbird.PlayerConfig"'
     }
 }
