@@ -7,6 +7,8 @@
     <description></description>
     <license>MIT</license>
     <keywords></keywords>
+    
+    <dependency id="cordova-plugin-genie-sdk" url="https://github.com/project-sunbird/cordova-plugin-genie-sdk.git"/>
 
     <hook src="scripts/android_after_add.js" type="after_prepare" />
 

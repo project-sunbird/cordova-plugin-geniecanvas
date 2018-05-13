@@ -5,7 +5,7 @@ configurations.all {
 }
 
 dependencies {
-    compile("org.sunbird.geniecanvas:geniecanvas_sharedxwalk:3.2.423@aar") {
+    compile("org.sunbird.geniecanvas:geniecanvas_sharedxwalk:3.2.10@aar") {
         exclude module: 'org.ekstep.genieservices'
         exclude module: 'io.ionic.keyboard'
     }
@@ -24,9 +24,7 @@ allprojects {
 }
 
 android {
-  productFlavors {
-        qa {
-            buildConfigField 'String', 'PLAYER_CONFIG', '"org.sunbird.PlayerConfig"'
-          }
+    defaultConfig {
+        buildConfigField 'String', 'PLAYER_CONFIG', '"org.sunbird.PlayerConfig"'
     }
 }

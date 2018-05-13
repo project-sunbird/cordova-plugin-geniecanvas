@@ -14,6 +14,8 @@ import org.ekstep.genieservices.commons.utils.ReflectionUtil;
 import org.ekstep.genieservices.commons.utils.StringUtil;
 import org.ekstep.genieservices.content.ContentConstants;
 
+import java.util.HashMap;
+
 /**
  * Created on 7/17/2017.
  *
@@ -50,16 +52,22 @@ public class PlayerConfig implements IPlayerConfig {
                 }
                 intent = new Intent(context, className);
 
-                intent.putExtra("showEndPage", false);
+                HashMap<String, Object> splashMap = new HashMap<>();
+                splashMap.put("bgImage", "");
+                splashMap.put("webLink", "");
+                splashMap.put("text", "");
+                splashMap.put("icon", "");
 
-//                HashMap<String, String> hmap = new HashMap<String, String>();
-//
-//                hmap.put("bgImage", "");
-//                hmap.put("text", "Powered by Nothing");
-//                hmap.put("webLink", "https://www.ekstep.in");
-//                hmap.put("icon", "assets/icons/icn_genie.png");
-//
-//                intent.putExtra("splash", GsonUtil.toJson(hmap));
+                HashMap<String, Object> userSwitcher = new HashMap<>();
+                userSwitcher.put("enableUserSwitcher", false);
+                userSwitcher.put("showUser", false);
+
+
+                HashMap<String, Object> config = new HashMap<>();
+                config.put("showEndPage", false);
+                config.put("splash", splashMap);
+                config.put("overlay", userSwitcher);
+                intent.putExtra("config", config);
 
             } else {
                 Toast.makeText(context, "Content player not found", Toast.LENGTH_SHORT).show();
