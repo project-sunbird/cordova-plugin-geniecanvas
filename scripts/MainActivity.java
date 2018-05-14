@@ -1,4 +1,3 @@
-package org.sunbird.app;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
