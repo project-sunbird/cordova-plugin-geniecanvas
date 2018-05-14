@@ -1,5 +1,6 @@
 module.exports = function (context) {
     var fs = require('fs');
+    var path = require('path');
 
     try {
         //move the cordova js filrs and plugins for the app
@@ -44,12 +45,33 @@ module.exports = function (context) {
         console.log(error);
     }
 
-    try {
-        //update main activity
-        fs.unlinkSync("platforms/android/app/src/main/java/org/sunbird/app/MainActivity.java");
-        fs.createReadStream("plugins/cordova-plugin-geniecanvas/scripts/MainActivity.java").pipe(fs.createWriteStream("platforms/android/app/src/main/java/org/sunbird/app/MainActivity.java"));
-    } catch (error) {
-        console.log(error);
+    var util = context.requireCordovaModule('cordova-lib/src/cordova/util');
+    var ConfigParser =context.requireCordovaModule('cordova-common').ConfigParser
+    var xml = new ConfigParser(util.projectConfig(util.isCordova()));
+
+
+    var applicationId = xml.packageName();
+    var applicationFile = applicationId.replace(/\./g , "\/");
+    var mainActivity = "platforms/android/app/src/main/java/" + applicationFile + "/MainActivity.java";
+    var replaceString = undefined;
+
+    if (fs.existsSync(mainActivity)) {
+
+        fs.readFile(mainActivity, 'utf8', function(err, data) {
+            if (err) {
+                throw new Error('Unable to find MainActivity.java: ' + err + ' ' + mainActivity);
+            }
+
+            fs.readFile("./plugins/cordova-plugin-geniecanvas/scripts/MainActivity.java", 'utf8', function(ferr, fdata) {
+                console.log("Trying Update");
+                var result = "package " + applicationId + ";\n".concat(fdata);
+                fs.writeFileSync(mainActivity, result, 'utf8', (error) => {
+                    console.log("MainActivity Write error");
+                })
+            });
+
+        });
+
     }
 
     try {
