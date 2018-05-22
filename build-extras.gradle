@@ -5,7 +5,7 @@ configurations.all {
 }
 
 dependencies {
-    compile("org.sunbird.geniecanvas:geniecanvas_sharedxwalk:3.2.13@aar") {
+    compile("org.sunbird.geniecanvas:geniecanvas_sharedxwalk:3.2.14@aar") {
         exclude module: 'org.ekstep.genieservices'
         exclude module: 'io.ionic.keyboard'
     }
