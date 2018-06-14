@@ -53,7 +53,6 @@ public class PlayerConfig implements IPlayerConfig {
                 intent = new Intent(context, className);
 
                 HashMap<String, Object> splashMap = new HashMap<>();
-                splashMap.put("bgImage", "");
                 splashMap.put("webLink", "");
                 splashMap.put("text", "");
                 splashMap.put("icon", "");
