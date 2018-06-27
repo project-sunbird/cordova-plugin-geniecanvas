@@ -25,7 +25,12 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
+import org.ekstep.genieservices.GenieService;
+import org.ekstep.genieservices.async.UserService;
+import org.ekstep.genieservices.commons.IResponseHandler;
 import org.ekstep.genieservices.commons.bean.Content;
+import org.ekstep.genieservices.commons.bean.ContentAccess;
+import org.ekstep.genieservices.commons.bean.GenieResponse;
 import org.ekstep.genieservices.commons.utils.GsonUtil;
 import org.ekstep.genieservices.utils.ContentPlayer;
 import org.json.JSONArray;
@@ -45,9 +50,8 @@ public class GenieCanvas extends CordovaPlugin {
             Content content = GsonUtil.fromJson(playContent, Content.class);
 
             String mimeType = content.getMimeType();
-            if (mimeType.equals("video/x-youtube")) {
-                ContentPlayer.play(cordova.getActivity(), content, null);
-            } else if (content.isAvailableLocally()) {
+            if (mimeType.equals("video/x-youtube") || content.isAvailableLocally()) {
+                addContentAccess(content.getIdentifier());
                 ContentPlayer.play(cordova.getActivity(), content, null);
             } else {
                 Toast.makeText(cordova.getActivity(), "Content Not Available", Toast.LENGTH_LONG).show();
@@ -55,5 +59,30 @@ public class GenieCanvas extends CordovaPlugin {
         }
         return true;
     }
+
+    /**
+     *This will mark the  content played status as PLAYED
+     *
+     * @param identifier
+     */
+    public static void addContentAccess(String identifier) {
+        UserService userService = GenieService.getAsyncService().getUserService();
+        if (identifier != null) {
+            ContentAccess contentAccess = new ContentAccess();
+            contentAccess.setStatus(1);
+            contentAccess.setContentId(identifier);
+            userService.addContentAccess(contentAccess, new IResponseHandler<Void>() {
+                @Override
+                public void onSuccess(GenieResponse<Void> genieResponse) {
+                }
+
+                @Override
+                public void onError(GenieResponse<Void> genieResponse) {
+
+                }
+            });
+        }
+    }
+
 
 }

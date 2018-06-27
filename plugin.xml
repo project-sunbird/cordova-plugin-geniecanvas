@@ -52,6 +52,12 @@
                 android:authorities="${applicationId}.content"
                 android:exported="true" />
         </config-file>
+         <config-file target="AndroidManifest.xml" parent="application">
+            <provider
+                android:name="org.sunbird.SummarizerProvider"
+                android:authorities="${applicationId}.summarizer"
+                android:exported="true" />
+        </config-file>
      
       <source-file src="src/android/org/apache/cordova/Util.java" target-dir="src/org/apache/cordova/" />
       <source-file src="src/android/org/sunbird/GenieCanvas.java" target-dir="src/org/sunbird/" />
@@ -60,6 +66,7 @@
       <source-file src="src/android/org/sunbird/PartnerProvider.java" target-dir="src/org/sunbird/" />
       <source-file src="src/android/org/sunbird/TelemetryProvider.java" target-dir="src/org/sunbird/" />
       <source-file src="src/android/org/sunbird/UserProvider.java" target-dir="src/org/sunbird/" />
+      <source-file src="src/android/org/sunbird/SummarizerProvider.java" target-dir="src/org/sunbird/" />
 
     </platform>
 
