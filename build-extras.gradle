@@ -5,10 +5,12 @@ configurations.all {
 }
 
 dependencies {
-    compile("org.sunbird.geniecanvas:geniecanvas_sharedxwalk:3.2.40@aar") {
+    compile("org.sunbird.geniecanvas:geniecanvas_sharedxwalk:3.2.42@aar") {
         exclude module: 'org.ekstep.genieservices'
         exclude module: 'io.ionic.keyboard'
     }
+
+    // For testing local aar files
 
     // compile fileTree(include: ['*.jar'], dir: 'libs')
     // 	 compile(name:'geniecanvas-local-debug',ext:'aar'){
