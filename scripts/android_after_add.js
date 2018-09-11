@@ -16,33 +16,28 @@ module.exports = function (context) {
         //rename config.xml for the app
         fs.renameSync("platforms/android/app/src/main/res/xml/config.xml", "platforms/android/app/src/main/res/xml/sunbird_config.xml");
     } catch (error) {
-        console.log(error);
     }
 
     try {
         //deleting duplicate cordova files
         fs.unlinkSync("platforms/android/CordovaLib/src/org/apache/cordova/BuildHelper.java");
     } catch (error) {
-        console.log(error);
     }
     try {
         fs.unlinkSync("platforms/android/CordovaLib/src/org/apache/cordova/PermissionHelper.java");
     } catch (error) {
-        console.log(error);
     }
 
     try {
         //deleting duplicate keyboard plugin files
         fs.unlinkSync("platforms/android/app/src/main/java/io/ionic/keyboard/IonicKeyboard.java");
     } catch (error) {
-        console.log(error);
     }
 
     try {
         //deleting duplicate device plugin files
         fs.unlinkSync("platforms/android/app/src/main/java/org/apache/cordova/device/Device.java");
     } catch (error) {
-        console.log(error);
     }
 
     var util = context.requireCordovaModule('cordova-lib/src/cordova/util');
@@ -63,7 +58,6 @@ module.exports = function (context) {
             }
 
             fs.readFile("./plugins/cordova-plugin-geniecanvas/scripts/MainActivity.java", 'utf8', function(ferr, fdata) {
-                console.log("Trying Update");
                 var result = "package " + applicationId + ";\n".concat(fdata);
                 fs.writeFileSync(mainActivity, result, 'utf8', (error) => {
                     console.log("MainActivity Write error");
