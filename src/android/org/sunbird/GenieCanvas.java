@@ -35,7 +35,7 @@ import org.ekstep.genieservices.commons.utils.GsonUtil;
 import org.ekstep.genieservices.utils.ContentPlayer;
 import org.json.JSONArray;
 import org.json.JSONException;
-
+import java.util.Map;
 public class GenieCanvas extends CordovaPlugin {
 
     @Override
@@ -47,15 +47,15 @@ public class GenieCanvas extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("play")) {
             String playContent = args.getString(0);
+            String extraInfo = args.getString(1);
             Content content = GsonUtil.fromJson(playContent, Content.class);
+            Map extraInfoMap = GsonUtil.fromJson(extraInfo, Map.class);
 
             String mimeType = content.getMimeType();
-            if (mimeType.equals("video/x-youtube") || content.isAvailableLocally()) {
+            if (content.isAvailableLocally()) {
                 addContentAccess(content.getIdentifier());
-                ContentPlayer.play(cordova.getActivity(), content, null);
-            } else {
-                Toast.makeText(cordova.getActivity(), "Content Not Available", Toast.LENGTH_LONG).show();
             }
+            ContentPlayer.play(cordova.getActivity(), content, extraInfoMap);
         }
         return true;
     }
