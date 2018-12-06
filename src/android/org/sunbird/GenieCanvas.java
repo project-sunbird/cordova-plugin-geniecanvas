@@ -52,9 +52,9 @@ public class GenieCanvas extends CordovaPlugin {
             Map extraInfoMap = GsonUtil.fromJson(extraInfo, Map.class);
 
             String mimeType = content.getMimeType();
-            if (content.isAvailableLocally()) {
+            // if (content.isAvailableLocally()) {
                 addContentAccess(content.getIdentifier());
-            }
+            // }
             ContentPlayer.play(cordova.getActivity(), content, extraInfoMap);
         }
         return true;
