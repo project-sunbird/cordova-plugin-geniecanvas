@@ -40,6 +40,12 @@ module.exports = function (context) {
     } catch (error) {
     }
 
+    try {
+        //deleting duplicate device plugin files
+        fs.unlinkSync("platforms/android/app/src/main/java/org/apache/cordova/networkinformation/NetworkManager.java");
+    } catch (error) {
+    }
+
     var util = context.requireCordovaModule('cordova-lib/src/cordova/util');
     var ConfigParser =context.requireCordovaModule('cordova-common').ConfigParser
     var xml = new ConfigParser(util.projectConfig(util.isCordova()));
