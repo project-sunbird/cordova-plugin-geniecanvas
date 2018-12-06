@@ -53,7 +53,7 @@ public class GenieCanvas extends CordovaPlugin {
 
             String mimeType = content.getMimeType();
             // if (content.isAvailableLocally()) {
-                addContentAccess(content.getIdentifier());
+                addContentAccess(content.getIdentifier(),content.getContentType());
             // }
             ContentPlayer.play(cordova.getActivity(), content, extraInfoMap);
         }
@@ -65,12 +65,13 @@ public class GenieCanvas extends CordovaPlugin {
      *
      * @param identifier
      */
-    public static void addContentAccess(String identifier) {
+    public static void addContentAccess(String identifier,String contentType) {
         UserService userService = GenieService.getAsyncService().getUserService();
         if (identifier != null) {
             ContentAccess contentAccess = new ContentAccess();
             contentAccess.setStatus(1);
             contentAccess.setContentId(identifier);
+            contentAccess.setContentType(contentType);
             userService.addContentAccess(contentAccess, new IResponseHandler<Void>() {
                 @Override
                 public void onSuccess(GenieResponse<Void> genieResponse) {
