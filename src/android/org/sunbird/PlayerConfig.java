@@ -44,34 +44,35 @@ public class PlayerConfig implements IPlayerConfig {
             }
 
         } else if (isSupportedFormat(content.getMimeType())) {
-            if (osId == null || GENIE_QUIZ_APP_PACKAGE.equals(osId) || GENIE_CANVAS_PACKAGE.equals(osId)) {
-                Class<?> className = ReflectionUtil.getClass(GENIE_CANVAS_ACTIVITY);
-                if (className == null) {
-                    Toast.makeText(context, "Content player not found", Toast.LENGTH_SHORT).show();
-                    return null;
-                }
-                intent = new Intent(context, className);
-
-                HashMap<String, Object> splashMap = new HashMap<>();
-                splashMap.put("webLink", "");
-                splashMap.put("text", "");
-                splashMap.put("icon", "");
-
-                HashMap<String, Object> userSwitcher = new HashMap<>();
-                userSwitcher.put("enableUserSwitcher", false);
-                userSwitcher.put("showUser", false);
-
-
-                HashMap<String, Object> config = new HashMap<>();
-                config.put("showEndPage", false);
-                config.put("splash", splashMap);
-                config.put("overlay", userSwitcher);
-                intent.putExtra("config", config);
-
-            } else {
+            // if (osId == null || GENIE_QUIZ_APP_PACKAGE.equals(osId) ||
+            // GENIE_CANVAS_PACKAGE.equals(osId)) {
+            Class<?> className = ReflectionUtil.getClass(GENIE_CANVAS_ACTIVITY);
+            if (className == null) {
                 Toast.makeText(context, "Content player not found", Toast.LENGTH_SHORT).show();
                 return null;
             }
+            intent = new Intent(context, className);
+
+            HashMap<String, Object> splashMap = new HashMap<>();
+            splashMap.put("webLink", "");
+            splashMap.put("text", "");
+            splashMap.put("icon", "");
+
+            HashMap<String, Object> userSwitcher = new HashMap<>();
+            userSwitcher.put("enableUserSwitcher", false);
+            userSwitcher.put("showUser", false);
+
+            HashMap<String, Object> config = new HashMap<>();
+            config.put("showEndPage", false);
+            config.put("splash", splashMap);
+            config.put("overlay", userSwitcher);
+            intent.putExtra("config", config);
+
+            // } else {
+            // Toast.makeText(context, "Content player not found",
+            // Toast.LENGTH_SHORT).show();
+            // return null;
+            // }
         } else {
             Toast.makeText(context, "Content type not supported", Toast.LENGTH_SHORT).show();
             return null;
@@ -82,16 +83,10 @@ public class PlayerConfig implements IPlayerConfig {
 
     private boolean isSupportedFormat(String mimeType) {
         Log.d("IS SUPPORTED FORMAT", mimeType);
-        return ContentConstants.MimeType.ECML.equals(mimeType)
-                || ContentConstants.MimeType.HTML.equals(mimeType)
-                || ("application/pdf").equals(mimeType)
-                || ("video/mp4").equals(mimeType)
-                || ("video/x-youtube").equals(mimeType)
-                || ("application/vnd.ekstep.h5p-archive").equals(mimeType)
-                || ("video/webm").equals(mimeType)
-                || ("application/epub").equals(mimeType);
-
-
+        return ContentConstants.MimeType.ECML.equals(mimeType) || ContentConstants.MimeType.HTML.equals(mimeType)
+                || ("application/pdf").equals(mimeType) || ("video/mp4").equals(mimeType)
+                || ("video/x-youtube").equals(mimeType) || ("application/vnd.ekstep.h5p-archive").equals(mimeType)
+                || ("video/webm").equals(mimeType) || ("application/epub").equals(mimeType);
     }
 
     private boolean isApk(String mimeType) {
@@ -119,9 +114,11 @@ public class PlayerConfig implements IPlayerConfig {
 
     private void openPlaystore(Context context, String osId) {
         Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage("com.android.vending");
-        ComponentName comp = new ComponentName("com.android.vending", "com.google.android.finsky.activities.LaunchUrlHandlerActivity");
+        ComponentName comp = new ComponentName("com.android.vending",
+                "com.google.android.finsky.activities.LaunchUrlHandlerActivity");
         launchIntent.setComponent(comp);
         launchIntent.setData(Uri.parse("market://details?id=" + osId));
         context.startActivity(launchIntent);
     }
 }
+
